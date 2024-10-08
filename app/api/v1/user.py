@@ -5,8 +5,6 @@ from fastapi.responses import ORJSONResponse, Response, JSONResponse, RedirectRe
 from app.db.schemas.user import (
     UserCreateReq,
     UserResp,
-    VerifyCodeInput,
-    Profile,
     UserLoginReq,
 )
 from app.core.redis import RedisCache
@@ -105,55 +103,6 @@ async def me(
     user = await user_service.verify_token(auth)
     admin = await user_service.get_user_data(user.id)
     return V1HttpResponse(content=admin)
-
-
-@router.get(
-    "/profile",
-    response_model=BaseHttpResponse[Profile],
-    responses={400: {"model": ErrorResponse}},
-)
-@inject
-async def is_profile(
-    auth: str = Cookie(None),
-    user_service: UserService = Depends(Provide[Container.user_service]),
-) -> BaseHttpResponse[Profile]:
-    user = await user_service.verify_token(auth)
-    admin = await user_service.get_user_profile(user.id)
-    return V1HttpResponse(content=admin)
-
-
-@router.put(
-    "/profile/update",
-    response_model=BaseHttpResponse[UserResp],
-    responses={400: {"model": ErrorResponse}},
-)
-@inject
-async def put_profile(
-    profile: Profile,
-    auth: str = Cookie(None),
-    user_service: UserService = Depends(Provide[Container.user_service]),
-) -> BaseHttpResponse[UserResp]:
-    user = await user_service.verify_token(auth)
-    admin = await user_service.update_user_profile(user.id, profile)
-
-    return V1HttpResponse(content=Profile.from_dto(admin))
-
-
-@router.post(
-    "/profile/create",
-    response_model=BaseHttpResponse[UserResp],
-    responses={400: {"model": ErrorResponse}},
-)
-@inject
-async def create_profile(
-    profile: Profile,
-    auth: str = Cookie(None),
-    user_service: UserService = Depends(Provide[Container.user_service]),
-) -> BaseHttpResponse[UserResp]:
-    user = await user_service.verify_token(auth)
-    admin = await user_service.create_user_profile(user.id, profile)
-
-    return V1HttpResponse(content=Profile.from_dto(admin))
 
 
 @router.get(

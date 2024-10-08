@@ -1,7 +1,7 @@
 from fastapi import HTTPException, BackgroundTasks
 from typing import Optional, List
-from app.models.user import User, ApplicationForm
-from app.db.schemas.user import UserResp, UserCreateReq, VerifyCodeInput, Profile
+from app.models.user import User
+from app.db.schemas.user import UserResp, UserCreateReq
 from app.services.encryption import SeedCbcCipher
 from app.db.repositories.user_repository import UserRepository
 import base64
@@ -89,7 +89,6 @@ class UserService:
             name=user.name,
             email=user.email,
             # user_auth = self._map_user_auth(user.auth),
-            updated_at=datetime.now(tz=timezone.utc),
             channel=user.channel,
             user_auth="Student",
             is_active=True,

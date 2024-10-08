@@ -1,6 +1,6 @@
 from typing import Optional
 from datetime import datetime
-from app.models.user import User, ApplicationForm
+from app.models.user import User
 from pydantic.dataclasses import dataclass
 
 

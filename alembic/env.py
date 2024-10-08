@@ -7,7 +7,7 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 
 # 프로젝트 루트 디렉토리 경로 (alembic 디렉토리의 상위 디렉토리)
 project_root = os.path.abspath(os.path.join(current_dir, ".."))
-
+print(current_dir, project_root)
 # sys.path에 프로젝트 루트 디렉토리 추가
 sys.path.append(project_root)
 import asyncio
@@ -33,16 +33,11 @@ target_metadata = Base.metadata
 # 데이터베이스 URL을 가져옵니다.
 from app.core.config import get_app_settings
 
-db = {
-    "test": "postgresql+asyncpg://test_user:kpoptest1!@db:5432/kpop_test",
-    "prod": "postgresql+asyncpg://postgres:Bamiedu11!!@kpop-db-prod.cp02cmo2g8fv.ap-northeast-2.rds.amazonaws.com:5432/postgres",
-}
-
 
 class Settings:
     database_url: str = os.getenv(
         "DATABASE_URL",
-        db.get("test"),
+        "postgresql+asyncpg://test_user:kpoptest1!@localhost:5432/kt-test",
     )
 
 

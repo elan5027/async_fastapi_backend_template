@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.core.containers import Container
 from app.services.user_service import UserService
 from app.services.image_service import ImageService
-from app.db.schemas.course import AWSReq
+from app.db.schemas.aws import AWSReq
 from dependency_injector.wiring import Provide, inject
 from app.db.schemas.common import (
     BaseHttpResponse,

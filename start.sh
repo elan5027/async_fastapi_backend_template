@@ -1,4 +1,4 @@
 #!/bin/sh
-export ENV=prod
+export ENV=local
 
 uvicorn app.main:app --reload
